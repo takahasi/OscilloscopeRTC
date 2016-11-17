@@ -1,0 +1,54 @@
+# OscilloscopeRTC CMake config file
+#
+# This file sets the following variables:
+# OscilloscopeRTC_FOUND - Always TRUE.
+# OscilloscopeRTC_INCLUDE_DIRS - Directories containing the OscilloscopeRTC include files.
+# OscilloscopeRTC_IDL_DIRS - Directories containing the OscilloscopeRTC IDL files.
+# OscilloscopeRTC_LIBRARIES - Libraries needed to use OscilloscopeRTC.
+# OscilloscopeRTC_DEFINITIONS - Compiler flags for OscilloscopeRTC.
+# OscilloscopeRTC_VERSION - The version of OscilloscopeRTC found.
+# OscilloscopeRTC_VERSION_MAJOR - The major version of OscilloscopeRTC found.
+# OscilloscopeRTC_VERSION_MINOR - The minor version of OscilloscopeRTC found.
+# OscilloscopeRTC_VERSION_REVISION - The revision version of OscilloscopeRTC found.
+# OscilloscopeRTC_VERSION_CANDIDATE - The candidate version of OscilloscopeRTC found.
+
+message(STATUS "Found OscilloscopeRTC-@PROJECT_VERSION@")
+set(OscilloscopeRTC_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(OscilloscopeRTC_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(OscilloscopeRTC_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(OscilloscopeRTC_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(OscilloscopeRTC_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(OscilloscopeRTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(OscilloscopeRTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(OscilloscopeRTC_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(OscilloscopeRTC_VERSION @PROJECT_VERSION@)
+set(OscilloscopeRTC_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(OscilloscopeRTC_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(OscilloscopeRTC_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(OscilloscopeRTC_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
